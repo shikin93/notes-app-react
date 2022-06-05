@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 
 function NoteInput({ charCount, title, body, onTitle, onBody, onSubmit }) {
   return (
-    <div className="note-input mx-auto max-w-2xl mb-16">
+    <div className="note-input mx-auto max-w-xl mb-16">
+      <h2 className="text-[1.5rem] mt-6 text-orange-400">Buat Catatan</h2>
       <form onSubmit={onSubmit}>
         <p className="note-input__title__char-limit text-right text-sm text-slate-400">Sisa karakter: {charCount}</p>
         <input type="text" className="note-input__title p-2 block w-full my-4 placeholder:font-bold font-bold rounded-md" placeholder="Judul catatan" required value={title} onChange={onTitle}/>

@@ -5,7 +5,7 @@ import NoteItem from './NoteItem';
 
 function NoteList({ notes, query, onDelete, onArchive }) {
   return (
-    <div className="notes-list grid mobile:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-4">
+    <div className="notes-list grid mobile:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-4 gap-4">
       {notes.filter(note => {
         if (query) {
           return note.title.toLowerCase().includes(query.toLowerCase());

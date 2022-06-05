@@ -5,8 +5,7 @@ import NoteInput from './NoteInput';
 
 function Main({ notes, archives, onDelete, onArchive, query, charCount, title, body, onSubmit, onTitleChange, onBodyChange }) {
   return (
-    <main className="note-app__main max-w-5xl p-4 mt-4 mx-auto">
-      <h2 className="text-[1.2rem] mt-6 text-orange-400">Buat Catatan</h2>
+    <main className="note-app__main max-w-6xl p-4 mt-4 mx-auto">
       <NoteInput charCount={charCount} title={title} body={body} onTitle={onTitleChange} onBody={onBodyChange} onSubmit={onSubmit} />
       <h2 className="text-[1.2rem] mb-4 mt-8 text-orange-400">Daftar Catatan</h2>
       {(notes.length > 0) ?
