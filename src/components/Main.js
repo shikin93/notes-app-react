@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NoteList from './NoteList';
+import NoteInput from './NoteInput';
 
-function Main({ notes, archives, onDelete, onArchive, query }) {
+function Main({ notes, archives, onDelete, onArchive, query, charCount, title, body, onSubmit, onTitleChange, onBodyChange }) {
   return (
     <main className="note-app__main max-w-5xl p-4 mt-4 mx-auto">
+      <h2 className="text-[1.2rem] mt-6 text-orange-400">Buat Catatan</h2>
+      <NoteInput charCount={charCount} title={title} body={body} onTitle={onTitleChange} onBody={onBodyChange} onSubmit={onSubmit} />
       <h2 className="text-[1.2rem] mb-4 mt-8 text-orange-400">Daftar Catatan</h2>
       {(notes.length > 0) ?
         <NoteList notes={notes} onDelete={onDelete} onArchive={onArchive} query={query}/> :
@@ -23,6 +26,12 @@ Main.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
   query: PropTypes.string.isRequired,
+  charCount: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
+  onBodyChange: PropTypes.func.isRequired,
 }
 
 export default Main;

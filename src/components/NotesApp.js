@@ -10,11 +10,17 @@ class NotesApp extends React.Component {
       notes: getInitialData(),
       archives: [],
       searchTerm: '',
+      title: '',
+      body: '',
+      charCount: 50,
     };
 
     this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
     this.onArchiveEventHandler = this.onArchiveEventHandler.bind(this);
     this.onSearchEventHandler = this.onSearchEventHandler.bind(this);
+    this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
+    this.onBodyChangeEventHandler = this.onBodyChangeEventHandler.bind(this);
+    this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
   }
 
   onDeleteEventHandler(id) {
@@ -51,6 +57,39 @@ class NotesApp extends React.Component {
     });
   }
 
+  onTitleChangeEventHandler(event) {
+    this.setState(() => {
+      return {
+        title: event.target.value.slice(0, 50),
+        charCount: Math.max(0, 50 - event.target.value.length)
+      }
+    })
+  }
+
+  onBodyChangeEventHandler(event) {
+    this.setState(() => {
+      return {
+        body: event.target.value
+      };
+    });
+  }
+
+  onSubmitEventHandler(event) {
+    event.preventDefault();
+    this.setState(prevState => ({
+      notes: [...prevState.notes, {
+        id: new Date().toISOString(),
+        title: this.state.title,
+        body: this.state.body,
+        createdAt: +new Date(),
+        archived: false
+      }],
+      title: '',
+      body: '',
+      charCount: 50
+    }));
+  }
+
 
   render() {
     return (
@@ -61,7 +100,13 @@ class NotesApp extends React.Component {
           archives={this.state.archives}
           onDelete={this.onDeleteEventHandler}
           onArchive={this.onArchiveEventHandler}
-          query={this.state.searchTerm} />
+          query={this.state.searchTerm}
+          charCount={this.state.charCount}
+          title={this.state.title}
+          body={this.state.body}
+          onTitleChange={this.onTitleChangeEventHandler}
+          onBodyChange={this.onBodyChangeEventHandler}
+          onSubmit={this.onSubmitEventHandler} />
       </div>
     );
   }
