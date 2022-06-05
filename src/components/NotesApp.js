@@ -1,6 +1,7 @@
 import React from 'react';
 import { getInitialData } from '../utils/data.js';
 import Main from './Main';
+import Header from './Header.js';
 
 class NotesApp extends React.Component {
   constructor(props) {
@@ -9,10 +10,11 @@ class NotesApp extends React.Component {
       notes: getInitialData(),
       archives: [],
       searchTerm: '',
-    }
+    };
 
     this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
     this.onArchiveEventHandler = this.onArchiveEventHandler.bind(this);
+    this.onSearchEventHandler = this.onSearchEventHandler.bind(this);
   }
 
   onDeleteEventHandler(id) {
@@ -21,7 +23,7 @@ class NotesApp extends React.Component {
         notes: prevState.notes.filter(note => note.id.toString() !== id),
         archives: prevState.archives.filter(note => note.id.toString() !== id)
       };
-    })
+    });
   }
 
   onArchiveEventHandler(id) {
@@ -43,17 +45,25 @@ class NotesApp extends React.Component {
     });
   }
 
+  onSearchEventHandler(event) {
+    this.setState({
+      searchTerm: event.target.value,
+    });
+  }
+
+
   render() {
     return (
       <div className="bg-slate-800">
-        <Main 
-        notes={this.state.notes}
-        archives={this.state.archives}
-        onDelete={this.onDeleteEventHandler}
-        onArchive={this.onArchiveEventHandler}
-        query={this.state.searchTerm} />
+        <Header onSearch={this.onSearchEventHandler} />
+        <Main
+          notes={this.state.notes}
+          archives={this.state.archives}
+          onDelete={this.onDeleteEventHandler}
+          onArchive={this.onArchiveEventHandler}
+          query={this.state.searchTerm} />
       </div>
-    )
+    );
   }
 }
 
